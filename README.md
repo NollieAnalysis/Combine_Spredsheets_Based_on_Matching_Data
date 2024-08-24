@@ -35,8 +35,11 @@ def list_of_order_numbers(first_spreadsheet_path, output_spreadsheet_path, key_c
     # Concatenate all numeric orders from all sheets into a single Series
     combined_orders = pd.concat(all_orders).reset_index(drop=True)
 
+    # Convert the numeric orders to strings and add a comma after each value
+    combined_orders = combined_orders.apply(lambda x: f"{int(x)},")
+
     # Save the combined orders to the output spreadsheet
-    combined_orders.to_excel(output_spreadsheet_path, index=False)
+    combined_orders.to_excel(output_spreadsheet_path, index=False, header=False)
 
     print(f"Spreadsheet saved as {output_spreadsheet_path}")
 
